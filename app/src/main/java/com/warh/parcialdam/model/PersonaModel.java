@@ -24,12 +24,6 @@ public class PersonaModel {
         this.genero = genero;
     }
 
-    public PersonaModel(int id, String nombre, String genero) {
-        this.id = id;
-        this.nombre = nombre;
-        this.genero = genero;
-    }
-
     public int getId() {
         return id;
     }

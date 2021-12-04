@@ -13,7 +13,7 @@ public class PersonaRepository {
     private static PersonaRepository _DB= null;
     private PersonaRoomDao personaDao;
     private PersonaRepository(Context ctx){
-        RoomDB db = Room.databaseBuilder(ctx,RoomDB.class, "parcial").fallbackToDestructiveMigration().build();
+        RoomDB db = Room.databaseBuilder(ctx,RoomDB.class, "par-db").allowMainThreadQueries().build();
         personaDao = db.personaRoomDao();
     }
     public static PersonaRepository getInstance(Context ctx){

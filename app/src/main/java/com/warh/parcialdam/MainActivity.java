@@ -42,8 +42,7 @@ public class MainActivity extends AppCompatActivity {
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listadoPersonas);
         listadoPersonasLV.setAdapter(adapter);
 
-        //TODO da error: RoomDB_Impl does not exist, no lo pude solucionar
-        //personaRepository = personaRepository.getInstance(this);
+        personaRepository = personaRepository.getInstance(this);
 
         guardarPersonaBtn.setOnClickListener(view -> {
             String nombre = nombrePersonaET.getText().toString();
@@ -58,14 +57,11 @@ public class MainActivity extends AppCompatActivity {
 
             PersonaModel p = new PersonaModel(nombre, genero);
 
-            //TODO Borrar linea de abajo y descomentar la del repositorio
-            listadoPersonas.add(p);
-            //personaRepository.guardarPersona(p);
+            personaRepository.guardarPersona(p);
         });
 
         listarPersonasBtn.setOnClickListener(view -> {
-            //TODO Descomentar linea de abajo
-            //listadoPersonas = personaRepository.listarPersonas();
+            listadoPersonas = personaRepository.listarPersonas();
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listadoPersonas);
             listadoPersonasLV.setAdapter(adapter);
         });
