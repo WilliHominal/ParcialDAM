@@ -50,6 +50,6 @@ public class PersonaModel {
 
     @Override
     public String toString() {
-        return "" + id + " - " + nombre + "(" + genero + ")";
+        return "" + id + " - " + nombre + " (" + genero + ")";
     }
 }

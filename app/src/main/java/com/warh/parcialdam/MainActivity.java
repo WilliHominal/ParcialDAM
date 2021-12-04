@@ -55,6 +55,15 @@ public class MainActivity extends AppCompatActivity {
                 default: genero = "Otro";
             }
 
+            if (nombre.isEmpty()){
+                Toast.makeText(this, "Ingrese un nombre", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (opcGenero != 1 && opcGenero != 2 && opcGenero != 3){
+                Toast.makeText(this, "Ingrese el género", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             PersonaModel p = new PersonaModel(nombre, genero);
 
             personaRepository.guardarPersona(p);
