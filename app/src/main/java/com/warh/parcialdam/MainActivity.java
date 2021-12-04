@@ -7,12 +7,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
-import androidx.room.Room;
-
-import com.warh.parcialdam.dao.BuilderDB;
-import com.warh.parcialdam.dao.PersonaRoomDao;
-import com.warh.parcialdam.dao.RoomDB;
+import com.warh.parcialdam.dao.PersonaRepository;
 import com.warh.parcialdam.model.PersonaModel;
 
 import java.util.ArrayList;
@@ -29,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     List<PersonaModel> listadoPersonas;
     ArrayAdapter<PersonaModel> adapter;
 
-    BuilderDB personaRepository;
+    PersonaRepository personaRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +39,11 @@ public class MainActivity extends AppCompatActivity {
         listarPersonasBtn = (Button) findViewById(R.id.listar_personas_btn);
         listadoPersonasLV = (ListView) findViewById(R.id.listado_LV);
         listadoPersonas = new ArrayList<>();
-        adapter = new ArrayAdapter<PersonaModel>(this, android.R.layout.simple_list_item_1, listadoPersonas);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listadoPersonas);
+        listadoPersonasLV.setAdapter(adapter);
 
-        personaRepository = BuilderDB.getInstance(this);
+        //TODO da error: RoomDB_Impl does not exist, no lo pude solucionar
+        //personaRepository = personaRepository.getInstance(this);
 
         guardarPersonaBtn.setOnClickListener(view -> {
             String nombre = nombrePersonaET.getText().toString();
@@ -52,18 +51,23 @@ public class MainActivity extends AppCompatActivity {
             String genero = "";
 
             switch(opcGenero){
-                case 0: genero = "Masculino"; break;
-                case 1: genero = "Femenino"; break;
+                case 1: genero = "Masculino"; break;
+                case 2: genero = "Femenino"; break;
                 default: genero = "Otro";
             }
 
             PersonaModel p = new PersonaModel(nombre, genero);
-            personaRepository.guardarPersona(p);
+
+            //TODO Borrar linea de abajo y descomentar la del repositorio
+            listadoPersonas.add(p);
+            //personaRepository.guardarPersona(p);
         });
 
         listarPersonasBtn.setOnClickListener(view -> {
-            listadoPersonas = Arrays.asList(personaRepository.listarPersonas());
+            //TODO Descomentar linea de abajo
+            //listadoPersonas = personaRepository.listarPersonas();
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listadoPersonas);
+            listadoPersonasLV.setAdapter(adapter);
         });
     }
 }
